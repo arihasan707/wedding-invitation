@@ -6,7 +6,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://annisaari-theanswerisari.my.id'], // ← bisa diganti dengan domain tertentu di production
+    'allowed_origins' => ['*'], // ← bisa diganti dengan domain tertentu di production
 
     'allowed_origins_patterns' => [],
 

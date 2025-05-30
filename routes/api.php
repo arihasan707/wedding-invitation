@@ -8,8 +8,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware('cors')->group(function () {
-    Route::get('commentar', [CommentarController::class, 'index']);
-    Route::get('commentar/load', [CommentarController::class, 'loadMore']);
-    Route::post('commentar/add', [CommentarController::class, 'store']);
-});
+
+Route::get('commentar', [CommentarController::class, 'index']);
+Route::get('commentar/load', [CommentarController::class, 'loadMore']);
+Route::post('commentar/add', [CommentarController::class, 'store']);

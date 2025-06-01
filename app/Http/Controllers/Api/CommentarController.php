@@ -15,35 +15,24 @@ class CommentarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cek = Commentar::all();
-        if (!empty($cek)) {
-            $data = Commentar::OrderBy('created_at', 'desc')
-                ->paginate(5);
+        if ($request->query()) {
+            # code...
+            $page = $request->query('page');
+            $limit = $request->query('limit');
+
+            $offset = ($page - 1) * $limit;
+            $data = Commentar::select('nama', 'text', 'dibuat')->latest()->offset($offset)
+                ->limit($limit)->get();
+        } else {
+            $data = Commentar::select('nama', 'text', 'dibuat')->latest()->first();
         }
         return response()->json([
             'status' => true,
-            'message' => 'tampil data',
             'data' => $data
         ], 200);
     }
-
-    public function loadMore(Request $request)
-    {
-        $start = $request->start;
-
-        $data = Commentar::orderBy('created_at', 'desc')
-            ->offset($start)
-            ->limit(5)
-            ->get();
-
-        return response()->json([
-            'data' => $data,
-            'next' => $start + 5
-        ], 200);
-    }
-
     /**
      * Store a newly created resource in storage.
      */

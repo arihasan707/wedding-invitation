@@ -17,17 +17,14 @@ class CommentarController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->query()) {
-            # code...
-            $page = $request->query('page');
-            $limit = $request->query('limit');
 
-            $offset = ($page - 1) * $limit;
-            $data = Commentar::select('nama', 'text', 'dibuat')->latest()->offset($offset)
-                ->limit($limit)->get();
-        } else {
-            $data = Commentar::select('nama', 'text', 'dibuat')->latest()->first();
-        }
+        $page = $request->query('page');
+        $limit = $request->query('limit');
+
+        $offset = ($page - 1) * $limit;
+        $data = Commentar::latest()->offset($offset)
+            ->limit($limit)->get();
+
         return response()->json([
             'status' => true,
             'data' => $data

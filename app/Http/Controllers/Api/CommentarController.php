@@ -22,7 +22,7 @@ class CommentarController extends Controller
         $limit = $request->query('limit');
 
         $offset = ($page - 1) * $limit;
-        $data = Commentar::latest()->offset($offset)
+        $data = Commentar::select('nama', 'text', 'dibuat')->latest()->offset($offset)
             ->limit($limit)->get();
 
         return response()->json([
